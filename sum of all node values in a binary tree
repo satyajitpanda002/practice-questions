@@ -1,0 +1,24 @@
+//https://binarysearch.com/room/nullptr-dereference-ukTjnKttKd
+
+
+
+/**
+ * class Tree {
+ *     public:
+ *         int val;
+ *         Tree *left;
+ *         Tree *right;
+ * };
+ */
+int solve(Tree* root) {
+    int sum=0;
+    if(root==0)
+        return 0;
+    else
+    {
+        sum+=root->val;
+        sum+=solve(root->left);
+        sum+=solve(root->right);
+    }
+    return sum;
+}
