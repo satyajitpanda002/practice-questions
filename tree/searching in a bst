@@ -1,0 +1,32 @@
+// https://binarysearch.com/room/nullptr-dereference-ukTjnKttKd
+
+
+
+/**
+ * class Tree {
+ *     public:
+ *         int val;
+ *         Tree *left;
+ *         Tree *right;
+ * };
+ */
+bool solve(Tree* root, int val) {
+/* if (root == 0) return false;
+    if (root->val == val)
+        return true;
+    else if (val < root->val)
+        return solve(root->left, val);
+    else
+        return solve(root->right, val);
+*/
+    while(root!=0)
+    {
+        if (root->val == val)
+            return true;
+        else if (val < root->val)
+            root=root->left;
+        else
+            root=root->right;
+    }
+    return false;
+}
