@@ -1,0 +1,27 @@
+//https://binarysearch.com/room/nullptr-dereference-ukTjnKttKd
+
+
+/**
+ * class LLNode {
+ *     public:
+ *         int val;
+ *         LLNode *next;
+ * };
+ */
+LLNode* solve(LLNode* node) {
+    if(node==0 || node->next==0)
+        return node;
+    
+    LLNode *head=node,*t=node;
+    int temp;
+    while(1)
+    {
+        if(t==0 || t->next==0)
+            break;
+        temp=t->val;
+        t->val=t->next->val;
+        t->next->val=temp;
+        t=t->next->next;
+    }
+    return head;
+}
