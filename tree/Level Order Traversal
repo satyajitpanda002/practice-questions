@@ -1,0 +1,31 @@
+//  https://binarysearch.com/room/nullptr-dereference-ukTjnKttKd
+
+
+import java.util.*;
+
+/**
+ * public class Tree {
+ *   int val;
+ *   Tree left;
+ *   Tree right;
+ * }
+ */
+class Solution {
+    public int[] solve(Tree root) {
+        ArrayList <Integer> list=new ArrayList<>();
+
+        return helper(root,list);
+    }
+    int[] helper(Tree root, ArrayList <Integer> list){
+        if(root==null)
+            return new int[0];
+
+        
+        list.add(root.val);
+        
+        helper(root.left,list);
+        helper(root.right,list);   
+        int[] array = list.stream().mapToInt(i -> i).toArray();
+        return array;
+    }
+}
