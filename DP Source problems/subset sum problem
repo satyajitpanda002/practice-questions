@@ -1,0 +1,41 @@
+#include"bits/stdc++.h"
+using namespace std;
+#define t true
+#define f false
+
+bool solve(int val[],int n,int sum)
+{
+    bool arr[n+1][sum+1];
+    for(int i=0;i<sum+1;i++)
+        arr[0][i]=f;
+    for(int i=0;i<n;i++)
+        arr[i][0]=t;
+
+    for(int i=1;i<n+1;i++)
+    {
+        for(int j=1;j<sum+1;j++)
+        {
+            if(val[i-1]<=j)
+                arr[i][j]=arr[i-1][j-val[i-1]] || arr[i-1][j];
+            else
+                arr[i][j]=arr[i-1][j];
+        }
+    }
+    return arr[n][sum];
+}
+
+int main()
+{
+    int n;
+    cout<<"enter value array size"<<endl;
+    cin>>n;
+    int val[n];
+    cout<<"enter value array"<<endl;
+    for(int i=0;i<n;i++)
+        cin>>val[i];
+    int sum;
+    cout<<"enter sum required"<<endl;
+    cin>>sum;
+    cout<<solve(val,n,sum);
+    return 0;
+}
