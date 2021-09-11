@@ -1,0 +1,42 @@
+// question - find minimum number of insertions and deletions to be made to string a and from string a to make it to string b
+// approach - find length of LCS between string a and string b
+//            no of insertions = length of string b - length of LCS
+//            no of deletions - length of string a - length of LCS
+
+#include"bits/stdc++.h"
+using namespace std;
+
+int solve(string x,string y,int m,int n)
+{
+    int dp[m+1][n+1];
+
+    for(int i=0;i<=n;i++)
+        dp[0][i]=0;
+    for(int i=0;i<=m;i++)
+        dp[i][0]=0;
+
+    for(int i=1;i<=m;i++)
+    {
+        for(int j=1;j<=n;j++)
+        {
+            if(x[i-1]==y[j-1])
+                dp[i][j]=1+dp[i-1][j-1];
+            else
+                dp[i][j]=max(dp[i][j-1],dp[i-1][j]);
+        }
+    }
+    return dp[m][n];
+}
+
+int main()
+{
+    string x,y;
+    cout<<"enter the two strings"<<endl;
+    cin>>x>>y;
+
+    int r=solve(x,y,x.length(),y.length());
+
+    cout<<"no of insertions = "<<y.length()-r<<endl<<"no of deletions = "<<x.length()-r<<endl;
+
+    return 0;
+}
