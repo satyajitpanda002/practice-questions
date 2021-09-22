@@ -1,0 +1,40 @@
+// question - find the next greater element in an array
+// approach - using stack we traverse the array from backwards
+
+#include"bits/stdc++.h"
+using namespace std;
+
+void solve(int arr[],int n)
+{
+    stack<int>stack;
+    int res[n];
+
+    for(int i=n-1;i>=0;i--)
+    {
+        while(stack.empty()==0 && stack.top()<arr[i])
+            stack.pop();
+        if(stack.empty()==1)
+            res[i]=-1;
+        else
+            res[i]=stack.top();
+
+        stack.push(arr[i]);
+    }
+
+    for(int i=0;i<n;i++)
+        cout<<res[i]<<" ";
+}
+
+int main()
+{
+    int n;
+    cout<<"enter array size "<<endl;
+    cin>>n;
+    int arr[n];
+    cout<<"enter the array elememts"<<endl;
+    for(int i=0;i<n;i++)
+        cin>>arr[i];
+
+    solve(arr,n);
+    return 0;
+}
