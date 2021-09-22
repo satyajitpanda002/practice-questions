@@ -1,0 +1,41 @@
+// question - given array can represent the pre-order traversal of a bst or not
+// approach - using stack
+
+#include"bits/stdc++.h"
+using namespace std;
+
+bool solve(int arr[],int n)
+{
+    stack<int>s;
+    int root=INT_MIN;
+
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]<root)
+            return false;
+        while(!s.empty() && s.top()<arr[i])
+        {
+            root=s.top();
+            s.pop();
+        }
+        s.push(arr[i]);
+    }
+    return true;
+}
+
+int main()
+{
+    int n;
+    cout<<"enter array size "<<endl;
+    cin>>n;
+    int arr[n];
+    cout<<"enter the array elememts"<<endl;
+    for(int i=0;i<n;i++)
+        cin>>arr[i];
+
+    if(solve(arr,n)==1)
+        cout<<"yes"<<endl;
+    else
+        cout<<"no"<<endl;
+    return 0;
+}
