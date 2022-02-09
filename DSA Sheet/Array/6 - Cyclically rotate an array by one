@@ -1,0 +1,6 @@
+void rotate(int arr[], int n)
+{
+    reverse(arr,arr+(n-1));
+    reverse(arr+n-1,arr+n);
+    reverse(arr,arr+n);
+}
