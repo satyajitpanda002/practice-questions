@@ -1,0 +1,34 @@
+class Solution{
+  public:
+    int minJumps(int arr[], int n){
+        // Your code here
+        int ans[n];
+        ans[n-1]=0;
+        int i=n-2;
+        while(i>=0)
+        {
+            if(arr[i]==0)
+                ans[i]=INT_MAX;
+            else if(arr[i]+i>=n-1)
+                ans[i]=1;
+            else
+            {
+                int start=i+1,end=min(n-1,i+arr[i]),temp=INT_MAX;
+                for(int j=start;j<=end;j++)
+                {
+                    if(temp>ans[j])
+                        temp=ans[j];
+                }
+                if(temp==INT_MAX)
+                    ans[i]=INT_MAX;
+                else
+                    ans[i]=1+temp;
+            }
+            i--;
+        }
+        if(ans[0]==INT_MAX)
+            return -1;
+        else
+            return ans[0];
+    }
+};
