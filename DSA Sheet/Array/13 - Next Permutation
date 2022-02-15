@@ -1,0 +1,28 @@
+class Solution {
+    void swap(vector<int>&arr,int &i,int &j)
+    {
+        int t=arr[j];
+        arr[j]=arr[i];
+        arr[i]=t;
+    }
+public:
+    void nextPermutation(vector<int>& nums) {
+        if(nums.size()==0 or nums.size()==1)
+            return;
+        int i=nums.size()-2;
+        while(i>=0 and nums[i]>=nums[i+1])
+            i--;
+        if(i<0)
+        {
+            reverse(nums.begin(),nums.end());
+        }
+        else
+        {
+            int j=nums.size()-1;
+            while(nums[j]<=nums[i])
+                j--;
+            swap(nums,i,j);
+            reverse(nums.begin()+i+1,nums.end());
+        }
+    }
+};
