@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> factorial(int n){
+        // code here
+        vector<int>v;
+        v.push_back(1);
+        if(n==0 || n==1)
+        {
+            return v;
+        }
+        
+        int index,ans;
+        for(int i=2;i<=n;i++)
+        {
+            index=0;
+            ans=0;
+            while(index<v.size())
+            {
+                ans+=v[index]*i;
+                v[index]=ans%10;
+                ans/=10;
+                index++;
+            }
+            while(ans)
+            {
+                v.push_back(ans%10);
+                ans/=10;
+            }
+        }
+        reverse(v.begin(),v.end());
+        return v;
+    }
+};
