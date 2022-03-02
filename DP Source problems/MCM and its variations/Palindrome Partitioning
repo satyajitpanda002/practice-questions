@@ -1,0 +1,83 @@
+//  minimium number of cuts needed in the string to make every substring pallindrome
+//  more optimized solution at the end, 1st one is general DP
+
+
+#include"bits/stdc++.h"
+using namespace std;
+int dp[101][101];
+
+bool isPallindrome(string &s,int i,int j)
+{
+    int f=1;
+    while(i<j)
+    {
+        if(s[i]!=s[j])
+        {
+            f=0;
+            break;
+        }
+        i++;
+        j--;
+    }
+    return f;
+}
+
+int solve(string &s,int i,int j)
+{
+    if(i>=j)
+        return 0;
+    if(isPallindrome(s,i,j))
+        return 0;
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+    int m=INT_MAX,temp;
+    for(int k=i;k<=j-1;k++)
+    {
+        temp=1+solve(s,i,k)+solve(s,k+1,j);
+        m=min(m,temp);
+    }
+    return dp[i][j]=m;
+}
+
+int main()
+{
+    string s;
+    cout<<"enter the string  ";
+    cin>>s;
+    int n=s.size();
+    memset(dp,-1,sizeof(dp));
+    cout<<"No of cuts needed is "<<solve(s,0,n-1);
+    return 0;
+}
+
+
+
+
+
+/*for more optimization
+int solve(string &s,int i,int j)
+{
+    if(i>=j)
+        return 0;
+    if(isPallindrome(s,i,j))
+        return 0;
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+    int m=INT_MAX,temp,l,r;
+    for(int k=i;k<=j-1;k++)
+    {
+        if(dp[i][k]!=-1)
+            l=dp[i][k];
+        else
+            l=solve(s,i,k);
+
+        if(dp[k+1][j]!=-1)
+            r=dp[k+1][r];
+        else
+            r=solve(s,k+1,j);
+        temp=1+l+r;
+        m=min(m,temp);
+    }
+    return m;
+}
+*/
