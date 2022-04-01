@@ -1,0 +1,39 @@
+// - Given an array arr[] of integers of size N that might contain duplicates, the task is to find all possible unique subsets.
+
+// question specific : ( Note: Each subset should be sorted. )
+
+// - https://practice.geeksforgeeks.org/problems/subsets-1587115621/1
+
+
+
+class Solution
+{
+    void subset(int i,vector<int>&arr,int n,set<vector<int>>&ans,vector<int>&curr)
+    {
+        if(i==n)
+        {
+            sort(curr.begin(),curr.end());
+            ans.insert(curr);
+            return;
+        }
+        subset(i+1,arr,n,ans,curr);
+        curr.push_back(arr[i]);
+        subset(i+1,arr,n,ans,curr);
+        curr.pop_back();
+    }
+    
+    public:
+    //Function to find all possible unique subsets.
+    vector<vector<int> > AllSubsets(vector<int> arr, int n)
+    {
+        // code here 
+        sort(arr.begin(),arr.end());
+        set<vector<int>>ans;
+        vector<int>curr;
+        subset(0,arr,n,ans,curr);
+        vector<vector<int>>res;
+        for(vector<int>x:ans)
+            res.push_back(x);
+        return res;
+    }
+};
