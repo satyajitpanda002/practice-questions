@@ -5,6 +5,9 @@ approach - start pos index from 0 to string length-1, swap arr[pos] with arr[i] 
            for loop is needed
 */
 
+// link - https://practice.geeksforgeeks.org/problems/permutations-of-a-given-string2041/1/
+
+
 
 class Solution
 {
