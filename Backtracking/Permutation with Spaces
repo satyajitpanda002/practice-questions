@@ -1,0 +1,32 @@
+// given a string, we have to add space between every possible [positions in the string and create new strings
+// return the sorted vector of the space added strings
+
+// link - https://practice.geeksforgeeks.org/problems/permutation-with-spaces3627/1
+
+
+
+class Solution{
+    void solve(int i,int n,string &s,vector<string>&res)
+    {
+        if(i==n-1)
+        {
+            res.push_back(s);
+            return;
+        }
+        solve(i+1,n,s,res);
+        s.insert(i+1," ");
+        solve(i+2,n+1,s,res);
+        s.erase(i+1,1);
+        
+    }
+public:
+
+    vector<string> permutation(string s){
+        // Code Here
+        vector<string>res;
+        int n=s.size();
+        solve(0,n,s,res);
+        sort(res.begin(),res.end());
+        return res;
+    }
+};
