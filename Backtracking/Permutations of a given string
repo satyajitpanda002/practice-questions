@@ -1,0 +1,39 @@
+// a string is given, we have to print/return all the permutation of the string in lexicographically increasing order
+
+/*
+approach - start pos index from 0 to string length-1, swap arr[pos] with arr[i] in thr for loop an call the function, at last again swap them
+           for loop is needed
+*/
+
+
+class Solution
+{
+    void solve(int pos,int n,string &s,set<string>&ans)
+    {
+        if(pos==n-1)
+        {
+            ans.insert(s);
+            return;
+        }
+        
+        for(int i=pos;i<n;i++)
+        {
+            swap(s[pos],s[i]);
+            solve(pos+1,n,s,ans);
+            swap(s[pos],s[i]);
+        }
+    }
+	public:
+		vector<string>find_permutation(string s)
+		{
+		    // Code here there
+		    int n=s.size();
+		    sort(s.begin(),s.end());
+		    set<string>ans;
+		    vector<string>res;
+		    solve(0,n,s,ans);
+		    for(auto x:ans)
+		        res.push_back(x);
+		    return res;
+		}
+};
