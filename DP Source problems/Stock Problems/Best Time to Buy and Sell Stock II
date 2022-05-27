@@ -72,7 +72,26 @@ public:
 
 // more optimization -  we are using only 4 variables here. So we can create  curr[1][2], ahead[1][2] like two 1d array which contains i=only two values and use that.
 
+// my own solution
 
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int profit=0,prevMin=prices[0];
+        int n=prices.size();
+        for(int i=1;i<n;i++)
+        {
+            if(prevMin>prices[i])
+                prevMin=prices[i];
+            else
+            {
+                profit+=(prices[i]-prevMin);
+                prevMin=prices[i];
+            }
+        }
+        return profit;
+    }
+};
 
 
 
