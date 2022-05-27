@@ -70,6 +70,7 @@ public:
     }
 };
 
+// more optimization -  we are using only 4 variables here. So we can create  curr[1][2], ahead[1][2] like two 1d array which contains i=only two values and use that.
 
 
 
