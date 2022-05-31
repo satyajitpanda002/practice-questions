@@ -1,0 +1,43 @@
+// link - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/
+
+// approach - same as III, only take maxumum chances k instead of 2
+
+
+// code
+
+
+class Solution {
+public:
+    int maxProfit(int q, vector<int>& prices) {
+        int arr[1001][2][q+1];
+        
+        for(int i=0;i<1001;i++)
+        {
+            for(int j=0;j<2;j++)
+            {
+                for(int k=0;k<=q;k++)
+                    arr[i][j][k]=0;
+            }
+        }
+        
+        for(int i=prices.size()-1;i>=0;i--)
+        {
+            for(int j=0;j<2;j++)
+            {
+                for(int k=1;k<=q;k++)
+                {
+                    if(j)
+                    {
+                        arr[i][j][k]=max(-prices[i]+arr[i+1][0][k],arr[i+1][1][k]);
+                    }
+                    else
+                    {
+                        arr[i][j][k]=max(prices[i]+arr[i+1][1][k-1],arr[i+1][0][k]);
+                    }
+                }
+            }
+        }
+        
+        return arr[0][1][q];
+    }
+};
