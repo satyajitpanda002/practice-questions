@@ -1,0 +1,31 @@
+//link - https://leetcode.com/problems/house-robber/submissions/
+
+/*
+  when robber stole from ma index i house, he will either steal from i+2 or i+3 house depending on the max.
+  so for index i we have to return nums[i]+max(solve(i+2),solve(i+3)).
+*/
+
+
+// code
+
+
+class Solution {
+    int dp[401];
+    int solve(vector<int>& nums,int pos,int n)
+    {
+        if(pos>=n)
+            return 0;
+        if(dp[pos]!=-1)
+            return dp[pos];
+        int tmp=max(solve(nums,pos+2,n),solve(nums,pos+3,n));
+        return dp[pos]=nums[pos]+tmp;
+    }
+public:
+    int rob(vector<int>& nums) {
+        memset(dp,-1,sizeof(dp));
+        int n=nums.size();
+        if(n==1)
+            return nums[0];
+        return max(solve(nums,0,n),solve(nums,1,n));
+    }
+};
