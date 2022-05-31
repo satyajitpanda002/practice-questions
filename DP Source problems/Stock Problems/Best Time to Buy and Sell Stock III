@@ -1,0 +1,79 @@
+// link - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
+
+// recursion + memorization
+// this gives memory limit exceeded error
+
+
+class Solution {
+    int arr[100001][2][3];
+    int solve(vector<int>prices,int pos,int status,int chances)
+    {
+        if(pos==prices.size() or chances==0)
+            return 0;
+        if(arr[pos][status][chances]!=-1)
+            return arr[pos][status][chances];
+        if(status)
+            return arr[pos][status][chances]=max(-prices[pos]+solve(prices,pos+1,0,chances),solve(prices,pos+1,1,chances));
+        else
+            return arr[pos][status][chances]=max(prices[pos]+solve(prices,pos+1,1,chances-1),solve(prices,pos+1,0,chances));
+    }
+public:
+    
+    int maxProfit(vector<int>& prices) {
+        for(int i=0;i<100001;i++)
+        {
+            for(int j=0;j<2;j++)
+            {
+                for(int k=0;k<3;k++)
+                    arr[i][j][k]=-1;
+            }
+        }
+        return (solve(prices,0,1,2));
+    }
+};
+
+
+
+//  tabulation (passed)
+
+
+class Solution {
+    int arr[100001][2][3];
+public:
+    
+    int maxProfit(vector<int>& prices) {
+        for(int i=0;i<100001;i++)
+        {
+            for(int j=0;j<2;j++)
+            {
+                for(int k=0;k<3;k++)
+                    arr[i][j][k]=0;
+            }
+        }
+        
+        for(int i=prices.size()-1;i>=0;i--)
+        {
+            for(int j=0;j<2;j++)
+            {
+                for(int k=1;k<=2;k++)
+                {
+                    if(j)
+                    {
+                        arr[i][j][k]=max(-prices[i]+arr[i+1][0][k],arr[i+1][1][k]);
+                    }
+                    else
+                    {
+                        arr[i][j][k]=max(prices[i]+arr[i+1][1][k-1],arr[i+1][0][k]);
+                    }
+                }
+            }
+        }
+        
+        return arr[0][1][2];
+    }
+};
+
+
+
+
+
