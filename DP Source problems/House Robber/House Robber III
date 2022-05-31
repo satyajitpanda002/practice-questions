@@ -1,0 +1,26 @@
+// link - https://leetcode.com/problems/house-robber-iii/submissions/
+
+// solution link - https://leetcode.com/problems/house-robber-iii/discuss/79330/Step-by-step-tackling-of-the-problem
+
+
+//code
+
+
+class Solution {
+    vector<int>solve(TreeNode *root)
+    {
+        vector<int>res{0,0};
+        if(!root)
+            return res;
+        vector<int>left=solve(root->left);
+        vector<int>right=solve(root->right);
+        res[0]=root->val+left[1]+right[1];
+        res[1]=max(left[0],left[1])+max(right[0],right[1]);
+        return res;
+    }
+public:
+    int rob(TreeNode* root) {
+        vector<int>res=solve(root);
+        return max(res[0],res[1]);
+    }
+};
