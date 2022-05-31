@@ -1,0 +1,31 @@
+// link - https://leetcode.com/problems/house-robber-ii/submissions/
+
+/*
+  Approach - based on the simple house robber iterative solution
+   As the array is circular here, we perform the house robber form (0 to n-2) and (1 to n-1), and which ever returns the maximum result we return that as result
+*/
+
+//code
+
+class Solution {
+    int solve(vector<int>&nums,int start,int end)
+    {
+        if(start==end)
+            return nums[start];
+        int tmp,prev1=0,prev2=0;
+        for(int i=start;i<=end;i++)
+        {
+            tmp=prev1;
+            prev1=max(prev1,nums[i]+prev2);
+            prev2=tmp;
+        }
+        return prev1;
+    }
+public:
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        if(n==1)
+            return nums[0];
+        return max(solve(nums,0,n-2),solve(nums,1,n-1));
+    }
+};
