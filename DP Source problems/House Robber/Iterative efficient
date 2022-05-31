@@ -1,0 +1,22 @@
+link - https://leetcode.com/problems/house-robber/submissions/
+
+/*
+  Uses two variables only prev1 and prev2 and tmp
+*/
+
+// code
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        int tmp,prev1=0,prev2=0;
+        for(int x:nums)
+        {
+            tmp=prev1;
+            prev1=max(prev1,x+prev2);
+            prev2=tmp;
+        }
+        return prev1;
+    }
+};
