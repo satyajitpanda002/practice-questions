@@ -1,0 +1,28 @@
+// Link - https://www.geeksforgeeks.org/permutation-coefficient/
+
+
+
+#include"bits/stdc++.h"
+using namespace std;
+
+int solve(int n,int k)
+{
+    // Formula is P(n,k) = n!/(n-k)! = n.(n-1).(n-2)...(n-k+1);
+    // also equal to P(n,k) = P(n-1,k) + k*P(n-1,k-1)   HERE dp can be applied
+    // going through the simplest solution
+
+    int ans=n;
+    for(int i=n-1;i>=n-k+1;i--)
+        ans*=i;
+    return ans;
+
+}
+
+int main()
+{
+    int n,k;
+    cout<<"entre the value of n and k"<<endl;
+    cin>>n>>k;
+    cout<<"Answer is "<<solve(n,k)<<endl;
+    return 0;
+}
