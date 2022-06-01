@@ -1,0 +1,32 @@
+// link - https://www.geeksforgeeks.org/program-nth-catalan-number/
+
+
+#include"bits/stdc++.h"
+using namespace std;
+
+int solve(int n)
+{
+    if(n==0 || n==1)
+        return 1;
+    int arr[n+1];
+    arr[0]=arr[1]=1;
+    for(int i=2;i<=n;i++)
+    {
+        int sum=0,high=i-1;
+        for(int j=0;j<=high;j++)
+        {
+            sum+=arr[j]*arr[high-j];
+        }
+        arr[i]=sum;
+    }
+    return arr[n];
+}
+
+int main()
+{
+    int n;
+    cout<<"Enter value of n"<<endl;
+    cin>>n;
+    cout<<n<<"th catalon number is "<<solve(n)<<endl;
+    return 0;
+}
