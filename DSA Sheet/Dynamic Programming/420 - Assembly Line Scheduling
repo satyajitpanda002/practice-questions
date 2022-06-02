@@ -1,0 +1,45 @@
+// link - https://www.geeksforgeeks.org/assembly-line-scheduling-dp-34/
+
+
+#include"bits/stdc++.h"
+using namespace std;
+
+int main()
+{
+    int n;
+    cout<<"enter no of stations in a line"<<endl;
+    cin>>n;
+    int a[2][n];
+    cout<<"enter the time taken for line 1  stations"<<endl;
+    for(int i=0;i<n;i++)
+        cin>>a[0][i];
+    cout<<"enter the time taken for line 2 stations"<<endl;
+    for(int i=0;i<n;i++)
+        cin>>a[1][i];
+
+    int t[2][n];
+    cout<<"enter the time taken for switching to line 1 stations"<<endl;
+    for(int i=0;i<n;i++)
+        cin>>t[0][i];
+    cout<<"enter the time taken for switching to line 2 stations"<<endl;
+    for(int i=0;i<n;i++)
+        cin>>t[1][i];
+    int e0,e1,x0,x1;
+    cout<<"enter start time for line 1 and 2 and end time for line 1 and 2"<<endl;
+    cin>>e0>>e1>>x0>>x1;
+
+    // solution starts
+    int upper=x0+a[0][n-1],lower=x1+a[1][n-1];
+    for(int i=n-1;i>=0;i--)
+    {
+        int tmp=upper;
+        upper=a[0][i]+min(upper,t[0][i+1]+lower);
+        lower=a[1][i]+min(lower,t[1][i+1]+tmp);
+    }
+    upper+=e0;
+    lower+=e1;
+
+    cout<<"the time required is "<<min(upper,lower)<<endl;
+    //solution ends
+    return 0;
+}
