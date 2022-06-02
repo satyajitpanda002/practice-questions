@@ -1,0 +1,24 @@
+// link - https://practice.geeksforgeeks.org/problems/painting-the-fence3727/1#
+
+
+
+class Solution{
+    public:
+    long long countWays(int n, int k){
+        // code here
+        #define ll long long int
+        ll mod=1000000007;
+        if(n==1)
+            return k;
+        ll same = k%mod, diff = (k*(k-1))%mod;
+            
+        for(int i=3;i<=n;i++)
+        {
+            ll tmp=diff%mod;
+            diff=((same+diff)*(k-1))%mod;
+            same=tmp%mod;
+        }
+        ll ans=(same+diff)%mod;
+        return ans;
+    }
+};
