@@ -1,0 +1,40 @@
+// link - https://practice.geeksforgeeks.org/problems/minimum-cost-to-fill-given-weight-in-a-bag1956/1#
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+//Position this line where user code will be pasted.
+
+class Solution{
+	#define ll long long int
+	
+	ll dp[201][201];
+	
+    ll solve(int cost[],int n,int w)
+    {
+        if(w==0)
+            return 0;
+        if(n==0 or w<0)
+            return INT_MAX;
+        
+        if(dp[n][w]!=-1)
+            return dp[n][w];
+        
+        if(cost[n-1]!=-1)
+            return dp[n][w]=min(cost[n-1]+solve(cost,n,w-n),solve(cost,n-1,w));
+        else
+            return dp[n][w]=solve(cost,n-1,w);
+        
+    }
+
+	public:
+	int minimumCost(int cost[], int N, int W) 
+	{ 
+        // Your code goes here
+	
+	    memset(dp,-1,sizeof(dp));
+	    return solve(cost,N,W);
+	} 
+};
