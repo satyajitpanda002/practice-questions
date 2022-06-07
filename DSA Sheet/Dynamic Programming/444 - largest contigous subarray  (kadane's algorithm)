@@ -1,0 +1,26 @@
+// link - https://practice.geeksforgeeks.org/problems/kadanes-algorithm-1587115620/1
+
+
+
+class Solution{
+    public:
+    // arr: input array
+    // n: size of array
+    //Function to find the sum of contiguous subarray with maximum sum.
+    #define ll long long int
+    long long maxSubarraySum(int arr[], int n){
+        
+        // Your code here
+        ll ans=INT_MIN;
+        ll max_upto_here=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            max_upto_here+=arr[i];
+            ans=max(ans,max_upto_here);
+            if(max_upto_here<0)
+                max_upto_here=0;
+        }
+        return ans;
+    }
+};
