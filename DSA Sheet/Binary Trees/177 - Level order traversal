@@ -1,0 +1,33 @@
+// link -https://practice.geeksforgeeks.org/problems/level-order-traversal/1
+
+
+
+class Solution
+{
+    public:
+    //Function to return the level order traversal of a tree.
+    vector<int> levelOrder(Node* node)
+    {
+        vector<int>ans;
+        if(!node)
+            return ans;
+        queue<Node *>q;
+        q.push(node);
+        int s=1;
+        while(!q.empty())
+        {
+            for(int i=1;i<=s;i++)
+            {
+                Node *t=q.front();
+                if(t->left)
+                    q.push(t->left);
+                if(t->right)
+                    q.push(t->right);
+                ans.push_back(t->data);
+                q.pop();
+            }
+            s=q.size();
+        }
+        return ans;
+    }
+};
