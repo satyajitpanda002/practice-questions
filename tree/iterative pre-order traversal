@@ -1,4 +1,9 @@
 // link - https://leetcode.com/problems/binary-tree-preorder-traversal/submissions/
+// approach - use stack, insert the root, until the stack is empty, pop a node, push its right and left node. 
+//insert the popped node value to the answer vector. our answer will be finnaly in the vector.
+
+
+
 
 
 class Solution {
