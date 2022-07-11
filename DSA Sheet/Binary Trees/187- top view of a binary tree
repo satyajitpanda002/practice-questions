@@ -1,5 +1,6 @@
 // link - https://practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1#
-
+// approach - we use the level order traversal as usual, but here we will store the column no also and use that column no in a map to store the value
+// then from that map the answer vector will be updated.
 
 
 class Solution
