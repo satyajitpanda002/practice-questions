@@ -1,0 +1,36 @@
+// link - https://practice.geeksforgeeks.org/problems/right-view-of-binary-tree/1
+// approach - the right most element of every level at level order traversal
+
+
+class Solution
+{
+    public:
+    //Function to return list containing elements of right view of binary tree.
+    vector<int> rightView(Node *root)
+    {
+       // Your Code here
+       vector<int>ans;
+        if(!root)
+            return ans;
+        queue<Node *>q;
+        q.push(root);
+        int s=q.size();
+        Node *t;
+        while(!q.empty())
+        {
+            for(int i=0;i<s;i++)
+            {
+                t=q.front();
+                q.pop();
+                if(t->left)
+                    q.push(t->left);
+                if(t->right)
+                    q.push(t->right);
+                if(i==s-1)
+                    ans.push_back(t->data);
+            }
+            s=q.size();
+        }
+        return ans;
+    }
+};
