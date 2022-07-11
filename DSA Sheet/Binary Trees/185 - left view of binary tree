@@ -1,0 +1,31 @@
+// link - https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1
+// approach - 1st element of every level in level order traversal
+
+
+vector<int> leftView(Node *root)
+{
+   // Your code here
+    vector<int>ans;
+    if(!root)
+        return ans;
+    queue<Node *>q;
+    q.push(root);
+    Node *t;
+    int s=q.size();
+    while(!q.empty())
+    {
+        for(int i=0;i<s;i++)
+        {
+            t=q.front();
+            q.pop();
+            if(i==0)
+                ans.push_back(t->data);
+            if(t->left)
+                q.push(t->left);
+            if(t->right)
+                q.push(t->right);
+        }
+        s=q.size();
+    }
+    return ans;
+}
