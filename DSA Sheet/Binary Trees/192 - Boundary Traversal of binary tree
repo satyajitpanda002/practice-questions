@@ -1,0 +1,74 @@
+// link - https://practice.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+
+
+class Solution {
+    bool isleaf(Node *root)
+    {
+        if(!root->left and !root->right)
+            return 1;
+        else
+            return 0;
+    }
+    
+    void lleft(Node *root,vector<int>&res)
+    {
+        Node *curr=root->left;
+        while(curr)
+        {
+            if(!isleaf(curr))
+                res.push_back(curr->data);
+            if(curr->left)
+                curr=curr->left;
+            else
+                curr=curr->right;
+        }
+    }
+    
+    void leaf(Node *root,vector<int>&res)
+    {
+        if(isleaf(root))
+        {
+            res.push_back(root->data);
+            return;
+        }
+        if(root->left)
+            leaf(root->left,res);
+        if(root->right)
+            leaf(root->right,res);
+    }
+    
+    void rright(Node *root,vector<int>&res)
+    {
+        Node *curr=root->right;
+        vector<int>t;
+        while(curr)
+        {
+            if(!isleaf(curr))
+                t.push_back(curr->data);
+            if(curr->right)
+                curr=curr->right;
+            else
+                curr=curr->left;
+        }
+        for(int i=t.size()-1;i>=0;i--)
+            res.push_back(t[i]);
+    }
+    
+    
+public:
+    vector <int> boundary(Node *root)
+    {
+        //Your code here
+        vector<int>res;
+        if(!root)
+            return res;
+        if(!isleaf(root))
+            res.push_back(root->data);
+            
+        lleft(root,res);
+        leaf(root,res);
+        rright(root,res);
+        
+        return res;
+    }
+};
