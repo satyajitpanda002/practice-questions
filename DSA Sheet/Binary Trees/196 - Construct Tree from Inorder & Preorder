@@ -1,0 +1,28 @@
+// link - https://practice.geeksforgeeks.org/problems/construct-tree-1/1
+
+
+
+class Solution{
+    Node *solve(int preorder[], int prestart, int preend, int inorder[],int instart, int inend, map<int,int>&mp,int n)
+    {
+        if(prestart>preend or instart>inend)
+            return NULL;
+        Node *root=new Node(preorder[prestart]);
+        
+        int inrootindex=mp[root->data];
+        int nosinleft=inrootindex-instart;
+        
+        root->left=solve(preorder,prestart+1,prestart+nosinleft,inorder,instart,inrootindex-1,mp,n);
+        root->right=solve(preorder,prestart+nosinleft+1,preend,inorder,inrootindex+1,inend,mp,n);
+        return root;
+    }
+    public:
+    Node* buildTree(int inorder[],int preorder[], int n)
+    {
+        map<int,int>mp;
+        for(int i=0;i<n;i++)
+            mp[inorder[i]]=i;
+    
+        return solve(preorder,0,n-1,inorder,0,n-1,mp,n);
+    }
+};
