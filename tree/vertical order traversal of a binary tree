@@ -1,0 +1,53 @@
+// link - https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/
+
+// approach - in the queue store the column number also and use a map in order to store the level no 
+//so that we can sort it before inbserting it into the original return vector
+
+
+
+
+class Solution {
+public:
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        map<int,map<int,vector<int>>>mp;
+        queue<pair<TreeNode *,int>>q;
+        vector<vector<int>>ans;
+        if(!root)
+            return ans;
+        int s=1;
+        q.push(make_pair(root,0));
+        pair<TreeNode *,int>p;
+        int level=0;
+        while(!q.empty())
+        {
+            for(int i=1;i<=s;i++)
+            {
+                p=q.front();
+                q.pop();
+                if(p.first->left)
+                    q.push(make_pair(p.first->left,p.second-1));
+                if(p.first->right)
+                    q.push(make_pair(p.first->right,p.second+1));
+                mp[p.second][level].push_back(p.first->val);
+            }
+            s=q.size();
+            level++;
+        }
+        vector<int>res,r;
+        map<int,vector<int>>m;
+        for(auto i=mp.begin();i!=mp.end();i++)
+        {
+            m=i->second;
+            for(auto j=m.begin();j!=m.end();j++)
+            {
+                res=j->second;
+                sort(res.begin(),res.end());
+                for(int d:res)
+                    r.push_back(d);
+            }
+            ans.push_back(r);
+            r.clear();
+        }
+        return ans;
+    }
+};
