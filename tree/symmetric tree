@@ -1,0 +1,20 @@
+// link - https://leetcode.com/problems/symmetric-tree/
+
+
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        return check(root->left,root->right);
+    }
+    
+    bool check(TreeNode *l,TreeNode *r)
+    {
+        if(!l and !r)
+            return 1;
+        if(!l or !r)
+            return 0;
+        if(l->val!=r->val)
+            return 0;
+        return (check(l->left,r->right) and check(l->right,r->left));
+    }
+};
