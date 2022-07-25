@@ -1,0 +1,26 @@
+// link - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+// approach 1 - we can trace tyhe path from thr root to the given nodes and store them in  a vector.
+//The nwe can check at which pint they differs, the last common between the two vector is the LCA.
+
+//approach 2 - we can traverse the tree recursively and return a value.
+//if on of the given node is found returb ==n that, else if both left anght return a node value instead of null, return that node.
+
+
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(!root or root==p or root==q)
+            return root;
+        TreeNode *l=lowestCommonAncestor(root->left,p,q);
+        TreeNode *r=lowestCommonAncestor(root->right,p,q);
+        
+        if(!l)
+            return r;
+        else if(!r)
+            return l;
+        else
+            return root;
+    }
+};
