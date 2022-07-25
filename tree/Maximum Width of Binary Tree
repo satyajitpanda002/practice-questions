@@ -1,0 +1,41 @@
+// link - https://leetcode.com/problems/maximum-width-of-binary-tree/
+
+// approach - level order traversal, special attention for overflow avoidance
+
+
+class Solution {
+    #define ll long long int
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+        if(!root)
+            return 0;
+        if(!root->left and !root->right)
+            return 1;
+        queue<pair<TreeNode *,ll>>q;
+        int s=1;
+        ll ans=0;
+        q.push(make_pair(root,0));
+        ll start,end;
+        while(!q.empty())
+        {
+            ll minn=q.front().second;
+            s=q.size();
+            for(int i=1;i<=s;i++)
+            {
+                ll curr=q.front().second-minn;
+                TreeNode *temp=q.front().first;
+                q.pop();
+                if(i==1)
+                    start=curr;
+                if(i==s)
+                    end=curr;
+                if(temp->left)
+                    q.push(make_pair(temp->left,2*curr+1));
+                if(temp->right)
+                    q.push(make_pair(temp->right,2*curr+2));
+            }
+            ans=max(ans,end-start+1);
+        }
+        return (int)ans;
+    }
+};
