@@ -1,0 +1,89 @@
+// link - https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+
+// approach - store the parents of each node
+// make a bfs and start from the target. check wheather it has parent, left and right and if they are unvisited then insert them
+// increase the counter, when count equals k return the values in a vector.
+
+
+
+class Solution {
+    unordered_map<TreeNode *,TreeNode *>mp;
+    queue<TreeNode *>parent;
+    
+    void fparent(TreeNode *root)
+    {
+        int s=1;
+        parent.push(root);
+        while(!parent.empty())
+        {
+            for(int i=1;i<=s;i++)
+            {
+                TreeNode *p=parent.front();
+                parent.pop();
+                if(p->left)
+                {
+                    parent.push(p->left);
+                    mp[p->left]=p;
+                }
+                if(p->right)
+                {
+                    parent.push(p->right);
+                    mp[p->right]=p;
+                }
+            }
+            s=parent.size();
+        }
+    }
+public:
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        vector<int>ans;
+        if(!root)
+            return ans;
+        fparent(root);
+        unordered_set<TreeNode *>visited;
+        int c=0;
+        queue<TreeNode *>q;
+        q.push(target);
+        if(k==0)
+        {
+            ans.push_back(target->val);
+            return ans;
+        }
+        int s=1;
+        visited.insert(target);
+        while(!q.empty())
+        {
+            for(int i=1;i<=s;i++)
+            {
+                TreeNode *p=q.front();
+                q.pop();
+                if(mp.find(p)!=mp.end() and visited.find(mp[p])==visited.end())
+                {
+                    q.push(mp[p]);
+                    visited.insert(mp[p]);
+                }
+                if(p->left and visited.find(p->left)==visited.end())
+                {
+                    q.push(p->left);
+                    visited.insert(p->left);
+                }
+                if(p->right and visited.find(p->right)==visited.end())
+                {
+                    q.push(p->right);
+                    visited.insert(p->right);
+                }
+            }
+            s=q.size();
+            c++;
+            if(c==k)
+                break;
+        }
+        
+        while(!q.empty())
+        {
+            ans.push_back(q.front()->val);
+            q.pop();
+        }
+        return ans;
+    }
+};
