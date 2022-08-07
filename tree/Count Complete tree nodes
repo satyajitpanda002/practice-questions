@@ -10,3 +10,44 @@ public:
         return 1+countNodes(root->left)+countNodes(root->right);
     }
 };
+
+
+
+optimized
+--------------
+
+
+
+class Solution {
+    int left(TreeNode *root)
+    {
+        int ans=0;
+        while(root)
+        {
+            ans++;
+            root=root->left;
+        }
+        return ans;
+    }
+    int right(TreeNode *root)
+    {
+        int ans=0;
+        while(root)
+        {
+            ans++;
+            root=root->right;
+        }
+        return ans;
+    }
+public:
+    int countNodes(TreeNode* root) {
+        if(!root)
+            return 0;
+        int lh=left(root);
+        int rh=right(root);
+        if(lh==rh)
+            return pow(2,lh)-1;
+        else
+            return 1+countNodes(root->left)+countNodes(root->right);
+    }
+};
