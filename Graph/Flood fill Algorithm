@@ -1,0 +1,44 @@
+// link - https://practice.geeksforgeeks.org/problems/flood-fill-algorithm1856/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=flood-fill-algorithm
+
+
+// approach - simple traversal
+
+
+class Solution {
+    int a[4]={1,-1,0,0},b[4]={0,0,1,-1};
+    
+    bool valid(int p,int q,int m,int n)
+    {
+        if(p<0 or p>=m or q<0 or q>=n)
+            return 0;
+        return 1;
+    }
+    
+    void solve(vector<vector<int>>& image,vector<vector<int>>&ans,int sr,int sc,int newColor,int inc)
+    {
+        if(image[sr][sc]==-1)
+            return;
+        image[sr][sc]=-1;
+        ans[sr][sc]=newColor;
+        int m=ans.size();
+        int n=image[0].size();
+        
+        for(int i=0;i<4;i++)
+        {
+            int p=sr+a[i];
+            int q=sc+b[i];
+            
+            if(valid(p,q,m,n) and image[p][q]==inc)
+                solve(image,ans,p,q,newColor,inc);
+        }
+    }
+    
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        // Code here 
+        int inc=image[sr][sc];
+        vector<vector<int>>ans(image);
+        solve(image,ans,sr,sc,newColor,image[sr][sc]);
+        return ans;
+    }
+};
