@@ -1,0 +1,50 @@
+// link - https://practice.geeksforgeeks.org/problems/find-the-number-of-islands/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=find_the_number_of_islands
+
+// approach - simple traversal
+
+
+
+class Solution {
+    int a[8]={1,-1,0,0,1,1,-1,-1},b[8]={0,0,1,-1,1,-1,1,-1};
+    
+    bool isvalid(int i,int j,int m,int n)
+    {
+        if(i<0 or i>=m or j<0 or j>=n)
+            return 0;
+        else
+            return 1;
+    }
+    void solve(vector<vector<char>>& grid,int i,int j,int m,int n)
+    {
+        grid[i][j]='2';
+        for(int k=0;k<8;k++)
+        {
+            int p=i+a[k];
+            int q=j+b[k];
+            if(isvalid(p,q,m,n) and grid[p][q]=='1')
+                solve(grid,p,q,m,n);
+        }
+    }
+    
+  public:
+    // Function to find the number of islands.
+    int numIslands(vector<vector<char>>& grid) {
+        // Code herei)
+        
+        int m=grid.size(),n=grid[0].size();
+        int ans=0;
+        
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]=='1')
+                {
+                    ans++;
+                    solve(grid,i,j,m,n);
+                }
+            }
+        }
+        return ans;
+    }
+};
