@@ -1,3 +1,10 @@
+ll link - https://www.geeksforgeeks.org/find-union-and-intersection-of-two-unsorted-arrays/
+
+// approach - use suitable hashed data structure for optimized time cmplexity
+
+
+
+
 // this is the only union part of any two arrays
 
 class Solution{
@@ -14,3 +21,5 @@ class Solution{
         return s.size();
     }
 };
+
+
